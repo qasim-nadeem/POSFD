@@ -3,8 +3,10 @@
 /public/storage
 /storage/*.key
 /vendor
+/startbootstrap-sb-admin-gh-pages
 .env
 .phpunit.result.cache
+.idea/
 Homestead.json
 Homestead.yaml
 npm-debug.log
