@@ -15,6 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', 'LoginController@index');
-Route::get('/dashboard', 'DashboardController@index');
+Route::get('/', 'LoginController@index')->name('page-login');
+Route::get('/dashboard', 'DashboardController@index')->name('page-dashboard');
 
