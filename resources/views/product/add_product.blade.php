@@ -11,6 +11,15 @@
         <li class="breadcrumb-item active">Add Product</li>
     </ol>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <!-- form for adding product -->
 
     <div class="form-container">
@@ -19,31 +28,31 @@
         @csrf
         <div class="row">
             <div class="col">
-                <input type="text" name = "product_name" class="form-control" placeholder="Product name">
+                <input type="text" name = "name" class="form-control" placeholder="Product name" value="{{ $errors->any() ? old('name') : '' }}" >
             </div>
             <div class="col">
-                <input type="number" name = "product_price" class="form-control" placeholder="Price per unit">
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col">
-                <input type="text" name = "product_code" class="form-control" placeholder="Product code">
-            </div>
-            <div class="col">
-                <input type="number" name = "product_quantity" class="form-control" placeholder="Product quantity">
+                <input type="number" name = "price_per_unit" class="form-control" placeholder="Price per unit" value="{{ $errors->any() ? old('price_per_unit') : '' }}">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
-                <input type="text" name = "product_manufacture" class="form-control" placeholder="Manufacture name">
+                <input type="text" name = "code" class="form-control" placeholder="Product code" value="{{ $errors->any() ? old('code') : '' }}" >
             </div>
             <div class="col">
-                <input type="text" name = "product_modal" class="form-control" placeholder="Modal name">
+                <input type="number" name = "quantity" class="form-control" placeholder="Product quantity" value="{{ $errors->any() ? old('quantity') : '' }}" >
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <input type="text" name = "manufacture_name" class="form-control" placeholder="Manufacture name" value="{{ $errors->any() ? old('manufacture_name') : '' }}">
             </div>
             <div class="col">
-            <select name = "product_color" class="custom-select">
+                <input type="text" name = "model_name" class="form-control" placeholder="Modal name" value="{{ $errors->any() ? old('model_name') : '' }}" >
+            </div>
+            <div class="col">
+            <select name = "color" class="custom-select">
                 <option selected>Select Color</option>
                 <option value="1">Red</option>
                 <option value="2">Black</option>
