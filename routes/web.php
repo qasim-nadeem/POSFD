@@ -23,4 +23,8 @@ Route::get('/dashboard', 'DashboardController@index')->name('page-dashboard');
 //
 Route::get('/product/add', 'ProductController@addProduct')->name('product.add');
 Route::post('/product/add/action', 'ProductController@addProductAction')->name('product.add.action');
+Route::get('/product/show/all', 'ProductController@showAllProducts')->name('product.show.all');
+Route::get('/product/update/{id}', 'ProductController@updateProduct')->name('product.update');
+Route::Post('/product/update/{id}/Action/', 'ProductController@updateProductAction')->name('product.update.action');
+
 

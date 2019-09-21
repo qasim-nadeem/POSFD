@@ -30,7 +30,7 @@ class ProductRequest extends FormRequest
             'code' => 'required',
             'manufacture_name' => 'required',
             'model_name' => 'required',
-            'color' => 'required|integer'
+            'color' => 'required'
         ];
     }
 
@@ -43,7 +43,6 @@ class ProductRequest extends FormRequest
             'code.required' => 'Product code is missing',
             'manufacturer_name.required' => 'Product Manufacturer is missing',
             'model_name.required' => 'Product Modal is missing',
-            'color.integer' => 'Product color is missing',
             'color.required' => 'Product color is missing'
         ];
     }

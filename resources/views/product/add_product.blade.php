@@ -53,11 +53,11 @@
             </div>
             <div class="col">
             <select name = "color" class="custom-select">
-                <option selected>Select Color</option>
-                <option value="1">Red</option>
-                <option value="2">Black</option>
-                <option value="3">Green</option>
-                <option value="3">Silver</option>
+                <option value="" selected>Select Color</option>
+                <option value="Red">Red</option>
+                <option value="Black">Black</option>
+                <option value="Green">Green</option>
+                <option value="Silver">Silver</option>
             </select>
             </div>
         </div>

@@ -106,6 +106,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <a class="dropdown-item" href="{{ route('product.add') }}">Add Product</a>
+                <a class="dropdown-item" href="{{ route('product.show.all') }}">All Products</a>
             </div>
         </li>
 
