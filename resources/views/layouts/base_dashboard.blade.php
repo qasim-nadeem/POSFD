@@ -23,6 +23,10 @@
     <!-- Custom styles for this template-->
     <link href= {{ URL::asset( "css/sb-admin.css" )}} rel="stylesheet">
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    @yield('style')
+
 </head>
 
 <body id="page-top">
@@ -98,6 +102,15 @@
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span>
             </a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Customers</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <a class="dropdown-item" href="{{ route('customer.add.transactions') }}">Add Transactions</a>
+            </div>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -228,6 +241,6 @@
 <!-- Demo scripts for this page-->
 <script src= {{ URL::asset( "js/demo/datatables-demo.js" )}}></script>
 <script src= {{ URL::asset( "js/demo/chart-area-demo.js" )}}></script>
-
+@yield('scripts')
 </body>
 </html>

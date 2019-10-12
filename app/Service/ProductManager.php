@@ -39,4 +39,17 @@ class ProductManager
 
         return Product::updateOrCreate(['id' => $id],$productData);
     }
+
+    public function getProductDataInJson($id)
+    {
+        $product = $this->findProductById($id);
+
+        $productArray = [
+            'id' => $product->id,
+            'quantity' => $product->quantity,
+            'price' => $product->price_per_unit
+        ];
+
+        return $productArray;
+    }
 }

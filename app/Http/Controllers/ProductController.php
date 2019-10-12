@@ -90,4 +90,14 @@ class ProductController extends Controller
             ]
         );
     }
+
+    /*
+     * return data of a single product in json format
+     */
+    public function productDataByIdInJson($id)
+    {
+        $data = $this->productManager->getProductDataInJson($id);
+
+        return response()->json($data);
+    }
 }
