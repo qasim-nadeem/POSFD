@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Service\CustomerTransactionManager;
 use App\Service\ProductManager;
 use Illuminate\Http\Request;
 
 class CustomerTransactionController extends Controller
 {
     private $productManager;
-    public function __construct(ProductManager $productManager)
+    private $customerTransactionManager;
+    public function __construct(
+        ProductManager $productManager,
+        CustomerTransactionManager $transactionManager
+    )
     {
         $this->productManager = $productManager;
+        $this->customerTransactionManager = $transactionManager;
     }
 
     //
@@ -22,5 +28,12 @@ class CustomerTransactionController extends Controller
                 'products' => $products
             ]
         );
+    }
+
+    //
+    public function addTransaction(Request $request)
+    {
+        $response = $this->customerTransactionManager->addTransactionProducts($request);
+        return response()->json($response);
     }
 }
