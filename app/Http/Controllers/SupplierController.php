@@ -3,29 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\SupplierRequest;
+use App\Service\SupplierManager;
 use App\supplier;
 
 class SupplierController extends Controller
 {
+    private $supplierManager;
+
+
+        public function __construct(SupplierManager $supplierManager)
+    {
+        $this->supplierManager = $supplierManager;
+    }
+
+
     public function addsupplier()
     {
         return view('supplier.add_supplier');
     }
 
-    public function addSupplierAction(Request $request)
+    public function addSupplierAction(SupplierRequest $request)
     {
-        $data = $request->all();
+        $request->validated();
 
-        $savesupplier = new supplier();
-        $savesupplier->name = $data['supplier_name'];
-        $savesupplier->mobile_no = $data['mobile_no'];
-        $savesupplier->address = $data['address'];
-        $savesupplier->company_name = $data['company_name'];
-        $savesupplier->balance = $data['balance'];
-        $savesupplier->save();
+        $this->supplierManager->AddSupplier($request);
 
-        return redirect()->route('supplier.add');
-
+        return redirect()->back()
+            ->withInput([])
+            ->with('success', 'Supplier added into inventory')
+            ->withInput($request->all());
 
     }
 }

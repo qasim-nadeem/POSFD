@@ -16,8 +16,8 @@ class CreateSupplierTransactionsTable extends Migration
         Schema::create('supplier_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('supplier_id');
-            $table->Integer('amount_paid');
-            $table->Integer('to_be_paid');
+            $table->Integer('amount_paid')->nullable();
+            $table->Integer('to_be_paid')->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->timestamps();
             $table->softDeletes();
