@@ -28,9 +28,14 @@ Route::get('/product/update/{id}', 'ProductController@updateProduct')->name('pro
 Route::Post('/product/update/{id}/Action/', 'ProductController@updateProductAction')->name('product.update.action');
 
 //
-// JSON: product routes
+// Ajax/Json: product routes
 //
 Route::get('/api/product/{id}', 'ProductController@productDataByIdInJson')->name('api.product.data.json');
+
+//
+// Ajax/Json: Transaction routes
+//
+Route::post('/api/transaction/add', 'CustomerTransactionController@addTransaction')->name('api.transaction.add');
 
 //
 //customer Transaction routers

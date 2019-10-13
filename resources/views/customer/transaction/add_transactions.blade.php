@@ -106,10 +106,13 @@
         $(document).ready(function () {
 
 
+            var routeGetProduct = "{{ route('api.product.data.json',['id' => 'nan']) }}";
+            var routeAddTransaction = "{{ route('api.transaction.add') }}";
             var totalPrice = 0;
+            var receipt = [];
            $('#dd-product').on('change', function () {
               var productId = $('#dd-product option:selected').val();
-               $.ajax({url: "http://localhost/posfd/public/api/product/" + productId, success: function(result){
+               $.ajax({url: routeGetProduct.replace('nan',productId), success: function(result){
 
                    if(result['quantity'] === 0) {
                        alert('Sorry, Product Stock is Nill.');
@@ -125,6 +128,11 @@
                 alert('sdf');
             });
 
+            /*
+
+                create arra of selected products in js.
+
+            */
            $('#btn-product-add').on('click', function () {
                event.preventDefault();
                $('.container-receipt table tbody')
@@ -137,9 +145,33 @@
                        '</td>' +
                        '</tr>'
                    );
+               receipt.push([$('#dd-product option:selected').val(), parseInt($('#tb-product-price').val()), parseInt($('#tb-product-quantity').val())]);
+               console.log(receipt);
                totalPrice += parseInt($('#tb-product-price').val()) * parseInt($('#tb-product-quantity').val());
                $('#container-total b').text(totalPrice + ' Rs');
            });
+
+
+           /*
+
+                        Add the Transaction
+
+            */
+
+           $('#btn-transaction-add').on('click', function () {
+               event.preventDefault();
+               $.ajax({
+                   type: 'POST',
+                   url: routeAddTransaction,
+                   data: {
+                       "_token": "{{ csrf_token() }}",
+                       'transaction' : receipt
+                   },
+                   success: function(result) {
+                        console.log('transaction added success.');
+                   }});
+
+           })
 
         });
     </script>

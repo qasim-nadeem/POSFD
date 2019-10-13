@@ -15,7 +15,7 @@ class CreateCustomerTransactionsTable extends Migration
     {
         Schema::create('customer_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('customer_id')->nullable()->unsigned();
             $table->Integer('amount_paid');
             $table->Integer('to_be_paid');
             $table->foreign('customer_id')->references('id')->on('customers');
