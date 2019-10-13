@@ -45,4 +45,5 @@ Route::get('/customer/add/transactions', 'CustomerTransactionController@addCusto
 //
 Route::get('/supplier/add', 'SupplierController@addsupplier')->name('supplier.add');
 Route::post('/supplier/add/action', 'SupplierController@addSupplierAction')->name('supplier.add.action');
+Route::get('/supplier/show/all', 'SupplierController@showAllSuppliers')->name('supplier.show.all');
 

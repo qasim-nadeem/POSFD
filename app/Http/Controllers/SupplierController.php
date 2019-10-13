@@ -35,4 +35,14 @@ class SupplierController extends Controller
             ->withInput($request->all());
 
     }
+
+        public function showAllSuppliers()
+    {
+        $suppliers = $this->supplierManager->getAllSuppliers();
+        return view('supplier.show_all_suppliers',
+            [
+                'suppliers' => $suppliers
+            ]
+        );
+    }
 }

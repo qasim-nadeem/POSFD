@@ -19,4 +19,9 @@ class SupplierManager
 
         return supplier::create($supplierData);
     }
+
+      public function getAllSuppliers()
+    {
+        return supplier::all();
+    }
 }
