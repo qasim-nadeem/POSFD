@@ -86,10 +86,10 @@ class CustomerTransactionManager
 
 
     /**
-     * @param array $customerInfo
+     * @param array $customerInfo|null
      * @return Customer|null
      */
-    public function addCustomer(array $customerInfo)
+    public function addCustomer(?array $customerInfo)
     {
 
         if($customerInfo)
