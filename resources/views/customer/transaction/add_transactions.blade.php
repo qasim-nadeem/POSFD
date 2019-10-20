@@ -95,6 +95,33 @@
 
                     </form>
                 </div>
+
+
+                <div id="container-customer-info">
+                    <br>
+                    <a href="#" id="btn-add-customer-info"> Add Customer info </a>
+                    <a href="#" id="btn-hide-customer-info"> Remove Customer info </a>
+                    <br><br>
+
+                    <div id="container-customer-form" style="display: none">
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" id="tb-customer-name" name = "customer-name" class="form-control" placeholder="Customer Namer" value="">
+                            </div>
+                            <br><br>
+
+                            <div class="col-12">
+                                <input type="number" id="tb-customer-phone" name = "customer-phone" class="form-control" placeholder="Customer Phone Number" value="">
+                            </div>
+                            <br><br>
+
+                            <div class="col-12">
+                                <input type="text" id="tb-customer-address" name = "customer-address" class="form-control" placeholder="Customer Address" value="">
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -110,6 +137,9 @@
             var routeAddTransaction = "{{ route('api.transaction.add') }}";
             var totalPrice = 0;
             var receipt = [];
+            var customerInfo = [];
+            var isCustomerInfo = false;
+
            $('#dd-product').on('change', function () {
               var productId = $('#dd-product option:selected').val();
                $.ajax({url: routeGetProduct.replace('nan',productId), success: function(result){
@@ -159,19 +189,52 @@
             */
 
            $('#btn-transaction-add').on('click', function () {
+               if(isCustomerInfo)
+               {
+                   customerInfo = [$('#tb-customer-name').val(), $('#tb-customer-phone').val(), $('#tb-customer-address').val()];
+               }
+               else
+               {
+                   customerInfo = [];
+               }
+               console.log(customerInfo);
+
                event.preventDefault();
                $.ajax({
                    type: 'POST',
                    url: routeAddTransaction,
                    data: {
                        "_token": "{{ csrf_token() }}",
-                       'transaction' : receipt
+                       'transaction' : receipt,
+                       'customerInfo' : customerInfo
                    },
                    success: function(result) {
-                        console.log('transaction added success.');
+                        if(result)
+                        {
+                            location.reload();
+                        }
                    }});
 
-           })
+           });
+
+
+            $('#btn-add-customer-info').on('click',function () {
+                isCustomerInfo = true;
+                $('#container-customer-form').show();
+                $('#btn-add-customer-info').hide();
+                $('#btn-hide-customer-info').show();
+            });
+
+            $('#btn-hide-customer-info').on('click',function () {
+                isCustomerInfo = false;
+                customerInfo = [];
+                $('#tb-customer-name').val('');
+                $('#tb-customer-address').val('');
+                $('#tb-customer-phone').val('');
+                $('#container-customer-form').hide();
+                $('#btn-add-customer-info').show();
+                $('#btn-hide-customer-info').hide();
+            });
 
         });
     </script>

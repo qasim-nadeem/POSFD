@@ -1,0 +1,7 @@
+#btn-add-customer-info, #btn-hide-customer-info{
+    float: right;
+}
+
+#btn-hide-customer-info{
+    display: none;
+}
