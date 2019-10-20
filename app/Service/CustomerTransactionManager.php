@@ -7,6 +7,7 @@ namespace App\Service;
 use App\Customer;
 use App\CustomerTransactions;
 use App\CustomerTransactionsProduct;
+use App\Product;
 use Illuminate\Http\Request;
 
 class CustomerTransactionManager
@@ -53,9 +54,10 @@ class CustomerTransactionManager
                 $transactionProduct->transaction_id = $transactionId;
                 $transactionProduct->customer_id = ($customer) ? $customer->id : $customer;
                 $transactionProduct->product_id = $product[0];
-                $transactionProduct->quantity = $product[1];
-                $transactionProduct->price_per_unit = $product[2];
+                $transactionProduct->quantity = $product[2];
+                $transactionProduct->price_per_unit = $product[1];
                 $transactionProduct->discounted_price_per_unit = 0;
+                $this->updateProduct($product[0], $product[2]);
                 $transactionProduct->save();
             }
 
@@ -109,5 +111,14 @@ class CustomerTransactionManager
         {
             return null;
         }
+    }
+
+
+    public function updateProduct($productId, $quantity)
+    {
+        $product = Product::find($productId);
+        $product->quantity = $product->quantity - $quantity;
+        $product->total_quantity = $product->total_quantity - $quantity;
+        $product->save();
     }
 }
