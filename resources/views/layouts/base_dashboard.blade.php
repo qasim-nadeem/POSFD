@@ -26,6 +26,9 @@
     <!-- Custome Styling file -->
     <link href= {{ URL::asset( "css/main.css" )}} rel="stylesheet">
 
+    <!-- searchable select box -->
+    <link href= {{ URL::asset( "css/jquery-customselect.css" )}} rel="stylesheet">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     @yield('style')
@@ -255,6 +258,7 @@
 <!-- Demo scripts for this page-->
 <script src= {{ URL::asset( "js/demo/datatables-demo.js" )}}></script>
 <script src= {{ URL::asset( "js/demo/chart-area-demo.js" )}}></script>
+<script src= {{ URL::asset( "js/jquery-customselect.js" )}}></script>
 @yield('scripts')
 </body>
 </html>

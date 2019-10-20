@@ -78,12 +78,14 @@
                             </div>
                             <div class="col">
                                 <input type="number" id="tb-product-price" name = "price_per_unit" class="form-control" placeholder="Price per unit" value="">
+                                <p id="product-price-label">Price : <span> --- </span></p>
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-6">
                                 <input type="number" id="tb-product-quantity" name = "quantity" class="form-control" placeholder="Quantity" value="">
+                                <p id="product-quantity-label">Quantity : <span> --- </span></p>
                             </div>
                             <div class="col-3">
                                 <button id="btn-product-add" name = "add-product" class="btn btn-primary"> Add </button>
@@ -104,6 +106,10 @@
                     <br><br>
 
                     <div id="container-customer-form" style="display: none">
+                        <div class="heading">
+                            <h5>Customer Information</h5>
+                        </div>
+                        <hr>
                         <div class="row">
                             <div class="col-12">
                                 <input type="text" id="tb-customer-name" name = "customer-name" class="form-control" placeholder="Customer Namer" value="">
@@ -140,7 +146,13 @@
             var customerInfo = [];
             var isCustomerInfo = false;
 
-           $('#dd-product').on('change', function () {
+
+            $(function() {
+                $("#dd-product").customselect();
+            });
+
+
+            $('#dd-product').on('change', function () {
               var productId = $('#dd-product option:selected').val();
                $.ajax({url: routeGetProduct.replace('nan',productId), success: function(result){
 
@@ -148,7 +160,14 @@
                        alert('Sorry, Product Stock is Nill.');
                    } else {
                        $('#tb-product-price').val(result['price']);
-                       $('#tb-product-quantity').val(result['quantity']);
+                       $('#tb-product-quantity').val('');
+                       if(result['quantity'] === 0)
+                           $('#product-quantity-label').css('color','red');
+                       else
+                           $('#product-quantity-label').css('color','green');
+
+                       $('#product-price-label span').text(result['price']);
+                       $('#product-quantity-label span').text(result['quantity']);
                    }
 
                }});
