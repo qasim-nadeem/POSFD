@@ -95,12 +95,13 @@
                             </div>
                             <div class="col">
                                 <input type="number" id="tb-product-price" name = "price_per_unit" class="form-control" placeholder="Price per unit" value="">
+                                <p id="product-price-label">Price : <span> --- </span></p>
                             </div>
                         </div>
-                        <br>
                         <div class="row">
                             <div class="col-6">
                                 <input type="number" id="tb-product-quantity" name = "quantity" class="form-control" placeholder="Quantity" value="">
+                                <p id="product-quantity-label">Quantity : <span> --- </span></p>
                             </div>
                           </div>
                         </br>
@@ -126,16 +127,27 @@
             var routeAddTransaction = "{{ route('api.transaction_supplier.add') }}";
             var totalPrice = 0;
             var receipt = [];
-           $('#dd-product').on('change', function () {
+            var itemCounter = 0;
+
+
+              $(function() {
+                $("#dd-product").customselect();
+            });
+
+            $('#dd-product').on('change', function () {
               var productId = $('#dd-product option:selected').val();
                $.ajax({url: routeGetProduct.replace('nan',productId), success: function(result){
 
-                   if(result['quantity'] === 0) {
-                       alert('Sorry, Product Stock is Nill.');
-                   } else {
                        $('#tb-product-price').val(result['price']);
-                       $('#tb-product-quantity').val(result['quantity']);
-                   }
+                       $('#tb-product-quantity').val('');
+                       if(result['quantity'] === 0)
+                           $('#product-quantity-label').css('color','red');
+                       else
+                           $('#product-quantity-label').css('color','green');
+
+                       $('#product-price-label span').text(result['price']);
+                       $('#product-quantity-label span').text(result['quantity']);
+                   
 
                }});
            });
@@ -149,24 +161,26 @@
                 create arra of selected products in js.
 
             */
-           $('#btn-product-add').on('click', function () {
+$('#btn-product-add').on('click', function () {
                event.preventDefault();
+               total = parseInt($('#tb-product-price').val()) * parseInt($('#tb-product-quantity').val());
+               productId = $('#dd-product option:selected').val();
                $('.container-receipt table tbody')
                    .append(
-                       '<tr>' +
+                       '<tr id="receipt-item-'+ itemCounter +'">' +
                        '<td>'+ $('#dd-product option:selected').text() + '</td>' +
                        '<td>'+ $('#tb-product-quantity').val() + ' X ' + parseInt($('#tb-product-price').val()) +'</td>' +
                        '<td>'+ parseInt($('#tb-product-price').val()) * parseInt($('#tb-product-quantity').val()) + ' Rs' +
-                       '<i class="fa fa-user-times" id="btn-product-remove"></i>' +
+                       '<a href="#" class="link-remove-item" total='+ total +' productId='+ productId +'> Remove </a>' +
                        '</td>' +
                        '</tr>'
                    );
                receipt.push([$('#dd-supplier option:selected').val(),$('#dd-product option:selected').val(), parseInt($('#tb-product-price').val()), parseInt($('#tb-product-quantity').val())]);
+               itemCounter++;
                console.log(receipt);
-               totalPrice += parseInt($('#tb-product-price').val()) * parseInt($('#tb-product-quantity').val());
+               totalPrice += total;
                $('#container-total b').text(totalPrice + ' Rs');
            });
-
 
            /*
 
@@ -192,6 +206,45 @@
 
            })
 
+            /*
+                Removing item from the queue
+             */
+            $('.container-receipt table tbody').on('click', 'tr a', function () {
+                amount = $(this).attr('total');
+                productId = $(this).attr('productId');
+                updateTotalPriceAfterItemRemoval(amount);
+                // receipt.splice(index,1);
+                receipt = receipt.filter( function( el ) {
+                    if((el[2] * el[1]) == amount && productId == el[0])
+                    {
+
+                    }
+                    else
+                    {
+                        return el;
+                    }
+
+                } );
+                $(this).parent().parent().remove();
+                $('#container-total b').text(totalPrice + ' Rs');
+                console.log(receipt);
+            });
+
+
+
+            /*
+
+                Utility functions.
+
+             */
+
+            function updateTotalPriceAfterItemRemoval(amount) {
+                    totalPrice -= parseInt(amount);
+            }
+
+
+
         });
+
     </script>
 @endsection
