@@ -78,12 +78,14 @@
                             </div>
                             <div class="col">
                                 <input type="number" id="tb-product-price" name = "price_per_unit" class="form-control" placeholder="Price per unit" value="">
+                                <p id="product-price-label">Price : <span> --- </span></p>
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-6">
                                 <input type="number" id="tb-product-quantity" name = "quantity" class="form-control" placeholder="Quantity" value="">
+                                <p id="product-quantity-label">Quantity : <span> --- </span></p>
                             </div>
                             <div class="col-3">
                                 <button id="btn-product-add" name = "add-product" class="btn btn-primary"> Add </button>
@@ -94,6 +96,37 @@
                         </div>
 
                     </form>
+                </div>
+
+
+                <div id="container-customer-info">
+                    <br>
+                    <a href="#" id="btn-add-customer-info"> Add Customer info </a>
+                    <a href="#" id="btn-hide-customer-info"> Remove Customer info </a>
+                    <br><br>
+
+                    <div id="container-customer-form" style="display: none">
+                        <div class="heading">
+                            <h5>Customer Information</h5>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" id="tb-customer-name" name = "customer-name" class="form-control" placeholder="Customer Namer" value="">
+                            </div>
+                            <br><br>
+
+                            <div class="col-12">
+                                <input type="number" id="tb-customer-phone" name = "customer-phone" class="form-control" placeholder="Customer Phone Number" value="">
+                            </div>
+                            <br><br>
+
+                            <div class="col-12">
+                                <input type="text" id="tb-customer-address" name = "customer-address" class="form-control" placeholder="Customer Address" value="">
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,7 +143,16 @@
             var routeAddTransaction = "{{ route('api.transaction.add') }}";
             var totalPrice = 0;
             var receipt = [];
-           $('#dd-product').on('change', function () {
+            var customerInfo = [];
+            var isCustomerInfo = false;
+
+
+            $(function() {
+                $("#dd-product").customselect();
+            });
+
+
+            $('#dd-product').on('change', function () {
               var productId = $('#dd-product option:selected').val();
                $.ajax({url: routeGetProduct.replace('nan',productId), success: function(result){
 
@@ -118,7 +160,14 @@
                        alert('Sorry, Product Stock is Nill.');
                    } else {
                        $('#tb-product-price').val(result['price']);
-                       $('#tb-product-quantity').val(result['quantity']);
+                       $('#tb-product-quantity').val('');
+                       if(result['quantity'] === 0)
+                           $('#product-quantity-label').css('color','red');
+                       else
+                           $('#product-quantity-label').css('color','green');
+
+                       $('#product-price-label span').text(result['price']);
+                       $('#product-quantity-label span').text(result['quantity']);
                    }
 
                }});
@@ -159,19 +208,52 @@
             */
 
            $('#btn-transaction-add').on('click', function () {
+               if(isCustomerInfo)
+               {
+                   customerInfo = [$('#tb-customer-name').val(), $('#tb-customer-phone').val(), $('#tb-customer-address').val()];
+               }
+               else
+               {
+                   customerInfo = [];
+               }
+               console.log(customerInfo);
+
                event.preventDefault();
                $.ajax({
                    type: 'POST',
                    url: routeAddTransaction,
                    data: {
                        "_token": "{{ csrf_token() }}",
-                       'transaction' : receipt
+                       'transaction' : receipt,
+                       'customerInfo' : customerInfo
                    },
                    success: function(result) {
-                        console.log('transaction added success.');
+                        if(result)
+                        {
+                            location.reload();
+                        }
                    }});
 
-           })
+           });
+
+
+            $('#btn-add-customer-info').on('click',function () {
+                isCustomerInfo = true;
+                $('#container-customer-form').show();
+                $('#btn-add-customer-info').hide();
+                $('#btn-hide-customer-info').show();
+            });
+
+            $('#btn-hide-customer-info').on('click',function () {
+                isCustomerInfo = false;
+                customerInfo = [];
+                $('#tb-customer-name').val('');
+                $('#tb-customer-address').val('');
+                $('#tb-customer-phone').val('');
+                $('#container-customer-form').hide();
+                $('#btn-add-customer-info').show();
+                $('#btn-hide-customer-info').hide();
+            });
 
         });
     </script>

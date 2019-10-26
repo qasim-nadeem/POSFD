@@ -1,0 +1,13 @@
+#btn-add-customer-info, #btn-hide-customer-info{
+    float: right;
+}
+
+#btn-hide-customer-info{
+    display: none;
+}
+
+#product-price-label, #product-quantity-label
+{
+    color: #2abf4d;
+    font-weight: bold;
+}
