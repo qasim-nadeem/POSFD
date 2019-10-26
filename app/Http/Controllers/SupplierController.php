@@ -14,6 +14,7 @@ class SupplierController extends Controller
 
         public function __construct(SupplierManager $supplierManager)
     {
+        $this->middleware('auth');
         $this->supplierManager = $supplierManager;
     }
 

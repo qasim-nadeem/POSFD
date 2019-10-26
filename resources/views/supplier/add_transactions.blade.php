@@ -35,7 +35,7 @@
                     <h5>Receipt View</h5>
                 </div>
                 <hr>
-                <div class="container-receipt">
+                <div class="container-receipt" style="height:300px; overflow-y:scroll" >
                     <table>
                         <thead>
                         <th> Item </th>
@@ -55,10 +55,16 @@
                         </div>
                     </div>
                 </div>
+              </br>
+            <div class="row">
+                <div class="col-8">
+                   <input type="number" id="tb-product-paid" name = "paid" class="form-control" placeholder="Paid" value="">
+                </div>
+               <div class="col-3">
+                   <input type="submit" id="btn-transaction-add" name = "add-product" class="btn btn-primary" value="Finish"/>
+                </div>
             </div>
-
-
-
+            </div>
             <div class="col-md-6">
                 <div class="heading">
                     <h5>Item Editor</h5>
@@ -67,6 +73,17 @@
                 <div class="container-form">
                     <form method="post" action="{{ route('product.add.action') }}">
                         @csrf
+                        <div class="row">
+                            <div class="col">
+                                <select name = "supplier" class="custom-select" id="dd-supplier">
+                                    <option value="" selected>Select Supplier</option>
+                                    @foreach( $suppliers as $supplier)
+                                        <option value="{{ $supplier->id  }}">{{ $supplier->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                      </br>
                         <div class="row">
                             <div class="col">
                                 <select name = "color" class="custom-select" id="dd-product">
@@ -85,14 +102,13 @@
                             <div class="col-6">
                                 <input type="number" id="tb-product-quantity" name = "quantity" class="form-control" placeholder="Quantity" value="">
                             </div>
-                            <div class="col-3">
+                          </div>
+                        </br>
+                        <div class="row">
+                          <div class="col-3">
                                 <button id="btn-product-add" name = "add-product" class="btn btn-primary"> Add </button>
                             </div>
-                            <div class="col-3">
-                                <input type="submit" id="btn-transaction-add" name = "add-product" class="btn btn-primary" value="Finish"/>
-                            </div>
                         </div>
-
                     </form>
                 </div>
             </div>
@@ -145,7 +161,7 @@
                        '</td>' +
                        '</tr>'
                    );
-               receipt.push([$('#dd-product option:selected').val(), parseInt($('#tb-product-price').val()), parseInt($('#tb-product-quantity').val())]);
+               receipt.push([$('#dd-supplier option:selected').val(),$('#dd-product option:selected').val(), parseInt($('#tb-product-price').val()), parseInt($('#tb-product-quantity').val())]);
                console.log(receipt);
                totalPrice += parseInt($('#tb-product-price').val()) * parseInt($('#tb-product-quantity').val());
                $('#container-total b').text(totalPrice + ' Rs');
@@ -166,10 +182,12 @@
                    url: routeAddTransaction,
                    data: {
                        "_token": "{{ csrf_token() }}",
-                       'transaction' : receipt
+                       'transaction' : receipt,
+                       'paid_amount' : parseInt($('#tb-product-paid').val())
                    },
                    success: function(result) {
                         console.log('transaction added success.');
+                        location.reload();
                    }});
 
            })

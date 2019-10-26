@@ -16,10 +16,9 @@ class ProductController extends Controller
      */
     public function __construct(ProductManager $productManager)
     {
+        $this->middleware('auth');
         $this->productManager = $productManager;
     }
-
-
 
 
     /*

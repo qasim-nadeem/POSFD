@@ -15,6 +15,7 @@ class CustomerTransactionController extends Controller
         CustomerTransactionManager $transactionManager
     )
     {
+        $this->middleware('auth');
         $this->productManager = $productManager;
         $this->customerTransactionManager = $transactionManager;
     }

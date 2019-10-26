@@ -11,12 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/', 'LoginController@index')->name('page-login');
-Route::get('/dashboard', 'DashboardController@index')->name('page-dashboard');
 
 //
 // Product routers
@@ -57,3 +55,15 @@ Route::get('/supplier/add/transactions', 'SupplierTransactionController@addSuppl
 Route::post('/api/transaction/addSupplier', 'SupplierTransactionController@addTransaction')->name('api.transaction_supplier.add');
 
 
+
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Auth::routes();
+Route::get('/dashboard', 'DashboardController@index')->name('page-dashboard');
+Route::get('/', 'Auth\LoginController@showLoginForm')->name('page-login');
+Route::post('/', 'Auth\LoginController@login')->name('page-login-post');
+Route::get('/home', 'HomeController@index')->name('home');
