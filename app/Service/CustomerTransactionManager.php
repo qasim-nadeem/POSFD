@@ -118,7 +118,6 @@ class CustomerTransactionManager
     {
         $product = Product::find($productId);
         $product->quantity = $product->quantity - $quantity;
-        $product->total_quantity = $product->total_quantity - $quantity;
         $product->save();
     }
 }

@@ -11,3 +11,8 @@
     color: #2abf4d;
     font-weight: bold;
 }
+
+#receipt-customer-info{
+    padding: 15px;
+    border: 1px dashed black;
+}
