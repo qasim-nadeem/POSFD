@@ -54,6 +54,12 @@
                             <b> --- </b>
                         </div>
                     </div>
+                    <div id="receipt-customer-info" style="display: none">
+                        <p> <u>Customer information</u> </p>
+                        <p> <b>Name</b> :       <span id="receipt-customer-name"></span> </p>
+                        <p> <b>Phone</b> :      <span id="receipt-customer-phone"></span> </p>
+                        <p> <b>Address</b> :    <span id="receipt-customer-address"></span> </p>
+                    </div>
                 </div>
             </div>
 
@@ -65,7 +71,7 @@
                 </div>
                 <hr>
                 <div class="container-form">
-                    <form method="post" action="{{ route('product.add.action') }}">
+                    <form method="post" action="">
                         @csrf
                         <div class="row">
                             <div class="col">
@@ -145,6 +151,7 @@
             var receipt = [];
             var customerInfo = [];
             var isCustomerInfo = false;
+            var itemCounter = 0;
 
 
             $(function() {
@@ -173,10 +180,6 @@
                }});
            });
 
-            $('#btn-product-remove').on('click', function () {
-                alert('sdf');
-            });
-
             /*
 
                 create arra of selected products in js.
@@ -184,19 +187,22 @@
             */
            $('#btn-product-add').on('click', function () {
                event.preventDefault();
+               total = parseInt($('#tb-product-price').val()) * parseInt($('#tb-product-quantity').val());
+               productId = $('#dd-product option:selected').val();
                $('.container-receipt table tbody')
                    .append(
-                       '<tr>' +
+                       '<tr id="receipt-item-'+ itemCounter +'">' +
                        '<td>'+ $('#dd-product option:selected').text() + '</td>' +
                        '<td>'+ $('#tb-product-quantity').val() + ' X ' + parseInt($('#tb-product-price').val()) +'</td>' +
                        '<td>'+ parseInt($('#tb-product-price').val()) * parseInt($('#tb-product-quantity').val()) + ' Rs' +
-                       '<i class="fa fa-user-times" id="btn-product-remove"></i>' +
+                       '<a href="#" class="link-remove-item" total='+ total +' productId='+ productId +'> Remove </a>' +
                        '</td>' +
                        '</tr>'
                    );
                receipt.push([$('#dd-product option:selected').val(), parseInt($('#tb-product-price').val()), parseInt($('#tb-product-quantity').val())]);
+               itemCounter++;
                console.log(receipt);
-               totalPrice += parseInt($('#tb-product-price').val()) * parseInt($('#tb-product-quantity').val());
+               totalPrice += total;
                $('#container-total b').text(totalPrice + ' Rs');
            });
 
@@ -239,6 +245,7 @@
 
             $('#btn-add-customer-info').on('click',function () {
                 isCustomerInfo = true;
+                $('#receipt-customer-info').show();
                 $('#container-customer-form').show();
                 $('#btn-add-customer-info').hide();
                 $('#btn-hide-customer-info').show();
@@ -250,10 +257,62 @@
                 $('#tb-customer-name').val('');
                 $('#tb-customer-address').val('');
                 $('#tb-customer-phone').val('');
+                $('#receipt-customer-info').hide();
                 $('#container-customer-form').hide();
                 $('#btn-add-customer-info').show();
                 $('#btn-hide-customer-info').hide();
             });
+
+
+            /*
+                 Adding customer info to live receipt
+             */
+            $('#tb-customer-name').on('keyup', function () {
+                $('#receipt-customer-name').text($('#tb-customer-name').val());
+            });
+            $('#tb-customer-phone').on('keyup', function () {
+                $('#receipt-customer-phone').text($('#tb-customer-phone').val());
+            });
+            $('#tb-customer-address').on('keyup', function () {
+                $('#receipt-customer-address').text($('#tb-customer-address').val());
+            });
+
+            /*
+                Removing item from the queue
+             */
+            $('.container-receipt table tbody').on('click', 'tr a', function () {
+                amount = $(this).attr('total');
+                productId = $(this).attr('productId');
+                updateTotalPriceAfterItemRemoval(amount);
+                // receipt.splice(index,1);
+                receipt = receipt.filter( function( el ) {
+                    if((el[2] * el[1]) == amount && productId == el[0])
+                    {
+
+                    }
+                    else
+                    {
+                        return el;
+                    }
+
+                } );
+                $(this).parent().parent().remove();
+                $('#container-total b').text(totalPrice + ' Rs');
+                console.log(receipt);
+            });
+
+
+
+            /*
+
+                Utility functions.
+
+             */
+
+            function updateTotalPriceAfterItemRemoval(amount) {
+                    totalPrice -= parseInt(amount);
+            }
+
 
         });
     </script>
