@@ -128,6 +128,7 @@
                 <span>Suppliers</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <a class="dropdown-item" href="{{ route('supplier.add.transactions') }}">Add Transactions</a>
                 <a class="dropdown-item" href="{{ route('supplier.add') }}">Add Supplier</a>
                 <a class="dropdown-item" href="{{ route('supplier.show.all') }}">All Suppliers</a>
 

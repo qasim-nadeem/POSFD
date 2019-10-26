@@ -17,13 +17,13 @@ class CreateSupplierTransactionsProductsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('supplier_id');
+            $table->unsignedBigInteger('supplier_id')->nullable();
             $table->integer('quantity')->nullable();
             $table->decimal('price_per_unit', 11, 2)->nullable();
             $table->decimal('discounted_price_per_unit', 11, 2)->nullable();    
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('supplier_id')->references('id')->on('suppliers');
-            $table->foreign('transaction_id')->references('id')->on('customer_transactions');
+            $table->foreign('transaction_id')->references('id')->on('supplier_transactions');
             $table->timestamps();
             $table->softDeletes();
         });
