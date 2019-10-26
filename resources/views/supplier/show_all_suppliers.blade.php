@@ -42,7 +42,7 @@
                     <tbody>
                     @foreach( $suppliers as $supplier)
                         <tr>
-                            <td><a href="{{ route('product.update',['id' => $supplier->id]) }}">{{ $supplier->name }}</a></td>
+                            <td><a href="{{ route('supplier.update',['id' => $supplier->id]) }}">{{ $supplier->name }}</a></td>
                             <td>{{$supplier->mobile_no }}</td>
                             <td>{{$supplier->address }}</td>
                             <td>{{$supplier->company_name }}</td>

@@ -45,4 +45,29 @@ class SupplierController extends Controller
             ]
         );
     }
+
+        public function updateSupplier($id)
+    {
+        $supplier = $this->supplierManager->findProductById($id);
+
+        return view('supplier.update_supplier',
+            [
+                'supplier' => $supplier
+            ]
+        );
+    }
+
+    /*
+     * update product post request
+     */
+    public function updateSupplierAction(SupplierRequest $request,$id)
+    {
+        $supplier = $this->supplierManager->updateSupplier($request, $id);
+
+        return redirect()
+            ->route('supplier.update',['id' => $id])
+            ->with('success', 'Product updated Successfully')
+            ->withInput($request->all());
+    }
+
 }

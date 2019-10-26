@@ -24,4 +24,31 @@ class SupplierManager
     {
         return supplier::all();
     }
+
+     public function findProductById($id)
+    {
+        return supplier::findOrFail($id);
+    }
+
+    public function updateSupplier(SupplierRequest $request, $id)
+    {
+        $supplierData = $request->all();
+        unset($supplierData['_token']);
+        unset($supplierData['Add']);
+        $supplierData['name'] = $request->supplier_name;
+        return supplier::updateOrCreate(['id' => $id],$supplierData);
+    }
+
+    public function getProductDataInJson($id)
+    {
+        $product = $this->findProductById($id);
+
+        $productArray = [
+            'id' => $product->id,
+            'quantity' => $product->quantity,
+            'price' => $product->price_per_unit
+        ];
+
+        return $productArray;
+    }
 }
