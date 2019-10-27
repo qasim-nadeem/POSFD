@@ -43,4 +43,25 @@ class SupplierTransactionController extends Controller
         $response = $this->SupplierTransactionManager->addTransactionProducts($request);
         return response()->json($response);
     }
+
+    public function allSupplierTransaction()
+    {
+        $transactions = $this->SupplierTransactionManager->getAllSupplierTransactions();
+        return view('supplier.all_transactions',
+            [
+                'transactions' => $transactions
+            ]
+        );
+    }
+
+        public function detailSupplierTransaction(Request $request, $transaction_id, $supplier_id = null)
+    {
+        $transactionDetail = $this->SupplierTransactionManager->getTransactionDetail($supplier_id, $transaction_id);
+        return view('supplier.transaction_details',
+            [
+                'transactionDetails' => $transactionDetail
+            ]
+        );
+
+    }
 }
