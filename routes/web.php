@@ -40,6 +40,9 @@ Route::post('/api/transaction/add', 'CustomerTransactionController@addTransactio
 //
 
 Route::get('/customer/add/transactions', 'CustomerTransactionController@addCustomerTransaction')->name('customer.add.transactions');
+Route::get('/customer/all/transactions', 'CustomerTransactionController@allCustomerTransaction')->name('customer.all.transactions');
+Route::get('/customer/add/transactions', 'CustomerTransactionController@addCustomerTransaction')->name('customer.add.transactions');
+Route::get('/detail/transaction/{transaction_id}/customer/{customer_id?}', 'CustomerTransactionController@detailCustomerTransaction')->name('customer.detail.transactions');
 
 
 

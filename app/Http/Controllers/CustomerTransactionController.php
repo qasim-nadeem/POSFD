@@ -33,6 +33,29 @@ class CustomerTransactionController extends Controller
     }
 
     //
+    public function allCustomerTransaction()
+    {
+        $transactions = $this->customerTransactionManager->getAllCustomerTransactions();
+        return view('customer.transaction.all_transactions',
+            [
+                'transactions' => $transactions
+            ]
+        );
+    }
+
+    //
+    public function detailCustomerTransaction(Request $request, $transaction_id, $customer_id = null)
+    {
+        $transactionDetail = $this->customerTransactionManager->getTransactionDetail($customer_id, $transaction_id);
+        return view('customer.transaction.transaction_details',
+            [
+                'transactionDetails' => $transactionDetail
+            ]
+        );
+
+    }
+
+    //
     public function addTransaction(Request $request)
     {
         $response = $this->customerTransactionManager->addTransactionProducts($request);
