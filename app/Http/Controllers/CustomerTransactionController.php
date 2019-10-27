@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Service\CustomerTransactionManager;
 use App\Service\ProductManager;
 use Illuminate\Http\Request;
-
+use App\CustomerTransactions;
+use Carbon;
 class CustomerTransactionController extends Controller
 {
     private $productManager;
@@ -22,7 +23,7 @@ class CustomerTransactionController extends Controller
 
     //
     public function addCustomerTransaction()
-    {
+    {    
         $products = $this->productManager->getAllProducts();
         return view('customer.transaction.add_transactions',
             [
@@ -37,4 +38,5 @@ class CustomerTransactionController extends Controller
         $response = $this->customerTransactionManager->addTransactionProducts($request);
         return response()->json($response);
     }
+
 }
