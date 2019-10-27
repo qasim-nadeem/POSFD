@@ -133,6 +133,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <a class="dropdown-item" href="{{ route('customer.add.transactions') }}">Add Transactions</a>
+                <a class="dropdown-item" href="{{ route('customer.all.transactions') }}">All Transactions</a>
             </div>
         </li>
         <li class="nav-item dropdown">
