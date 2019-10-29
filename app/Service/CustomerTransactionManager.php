@@ -50,7 +50,8 @@ class CustomerTransactionManager
         {
             $transactionData = $request->get('transaction');
             foreach ($transactionData as $product)
-            {
+            {   $profit = Product:: find($product[0]);
+
                 $transactionProduct = new CustomerTransactionsProduct();
                 $transactionProduct->transaction_id = $transactionId;
                 $transactionProduct->customer_id = ($customer) ? $customer->id : $customer;
@@ -58,6 +59,7 @@ class CustomerTransactionManager
                 $transactionProduct->quantity = $product[2];
                 $transactionProduct->price_per_unit = $product[1];
                 $transactionProduct->discounted_price_per_unit = 0;
+                $transactionProduct->profit = ($product[1] - $profit['purchase_price']) * $product[2];
                 $this->updateProduct($product[0], $product[2]);
                 $transactionProduct->save();
             }

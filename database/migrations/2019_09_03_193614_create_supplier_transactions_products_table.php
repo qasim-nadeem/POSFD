@@ -19,8 +19,8 @@ class CreateSupplierTransactionsProductsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->integer('quantity')->nullable();
-            $table->decimal('price_per_unit', 11, 2)->nullable();
-            $table->decimal('discounted_price_per_unit', 11, 2)->nullable();    
+            $table->integer('price_per_unit')->nullable();
+            $table->integer('discounted_price_per_unit')->nullable();    
             $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->foreign('transaction_id')->references('id')->on('supplier_transactions');

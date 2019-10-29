@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CustomerTransactions;
+use App\CustomerTransactionsProduct
+;
 use Carbon;
 
 class DashboardController extends Controller
@@ -25,9 +27,22 @@ class DashboardController extends Controller
             $get_data_monthly = CustomerTransactions::select(['id','amount_paid'])->whereBetween('created_at', [
                             Carbon\Carbon::now()->startOfMonth(),
                             Carbon\Carbon::now()->endOfMonth(),])->sum('amount_paid');
-    	$data['daily'] = $get_data_daily;
+            $get_profit_daily = CustomerTransactionsProduct:: select(['id','profit'])->where('created_at', '>=', $current_date)->sum('profit');
+    	    $get_profit_weekly =  CustomerTransactionsProduct::select(['id','profit'])->whereBetween('created_at', [
+                            Carbon\Carbon::parse('last monday')->startOfDay(),
+                            Carbon\Carbon::parse('next sunday')->endOfDay(),])->sum('profit');
+            $get_profit_monthly = CustomerTransactionsProduct::select(['id','profit'])->whereBetween('created_at', [
+                            Carbon\Carbon::now()->startOfMonth(),
+                            Carbon\Carbon::now()->endOfMonth(),])->sum('profit');
+
+
+        $data['daily'] = $get_data_daily;
     	$data['weekly'] = $get_data_weekly;
     	$data['monthly'] = $get_data_monthly;
+        $data['daily_profit'] = $get_profit_daily;
+        $data['weekly_profit'] = $get_profit_weekly;
+        $data['monthly_profit'] = $get_profit_monthly;
+
         return view('dashboard.index', $data);
     }
 

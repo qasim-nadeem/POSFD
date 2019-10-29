@@ -16,7 +16,6 @@ class ProductManager
     {
         $productData = $request->all();
         $productData['total_quantity'] = $request->quantity;
-
         return Product::create($productData);
     }
 
@@ -47,7 +46,8 @@ class ProductManager
         $productArray = [
             'id' => $product->id,
             'quantity' => $product->quantity,
-            'price' => $product->price_per_unit
+            'price' => $product->price_per_unit,
+            'purchase_price' => $product->purchase_price
         ];
 
         return $productArray;

@@ -138,14 +138,14 @@
               var productId = $('#dd-product option:selected').val();
                $.ajax({url: routeGetProduct.replace('nan',productId), success: function(result){
 
-                       $('#tb-product-price').val(result['price']);
+                       $('#tb-product-price').val(result['purchase_price']);
                        $('#tb-product-quantity').val('');
                        if(result['quantity'] === 0)
                            $('#product-quantity-label').css('color','red');
                        else
                            $('#product-quantity-label').css('color','green');
 
-                       $('#product-price-label span').text(result['price']);
+                       $('#product-price-label span').text(result['purchase_price']);
                        $('#product-quantity-label span').text(result['quantity']);
                    
 

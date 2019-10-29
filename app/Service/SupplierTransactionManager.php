@@ -38,6 +38,7 @@ class SupplierTransactionManager
             $transactionData = $request->get('transaction');
             foreach ($transactionData as $product)
             {
+                $update_product = Product:: find($product[1]);
                 $transactionProduct = new SupplierTransactionsProduct();
                 $transactionProduct->transaction_id = $transactionId;
                 $transactionProduct->supplier_id = $product[0];
@@ -47,6 +48,8 @@ class SupplierTransactionManager
                 $transactionProduct->discounted_price_per_unit = 0;
                 $this->updateProduct($product[1], $product[3]);
                 $transactionProduct->save();
+                $update_product->purchase_price = $product[2];
+                $update_product-> save();
             }
 
             return true;

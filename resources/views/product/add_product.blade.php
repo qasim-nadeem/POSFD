@@ -31,11 +31,14 @@
                 <input type="text" name = "name" class="form-control" placeholder="Product name" value="{{ $errors->any() ? old('name') : '' }}" >
             </div>
             <div class="col">
-                <input type="number" name = "price_per_unit" class="form-control" placeholder="Price per unit" value="{{ $errors->any() ? old('price_per_unit') : '' }}">
+                <input type="number" name = "purchase_price" class="form-control" placeholder="Purchasing price" value="{{ $errors->any() ? old('purchase_price') : '' }}">
             </div>
         </div>
         <br>
         <div class="row">
+            <div class="col">
+                <input type="number" name = "price_per_unit" class="form-control" placeholder="Price per unit" value="{{ $errors->any() ? old('price_per_unit') : '' }}">
+            </div>
             <div class="col">
                 <input type="text" name = "code" class="form-control" placeholder="Product code" value="{{ $errors->any() ? old('code') : '' }}" >
             </div>

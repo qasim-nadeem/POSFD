@@ -18,6 +18,7 @@ class Product extends Model
             'manufacture_name',
             'model_name',
             'color',
-            'total_quantity'
+            'total_quantity',
+            'purchase_price'
     ];
 }

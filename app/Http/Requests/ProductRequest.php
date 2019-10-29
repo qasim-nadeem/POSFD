@@ -27,6 +27,7 @@ class ProductRequest extends FormRequest
             'name' => 'required',
             'quantity' => 'required',
             'price_per_unit' => 'required',
+            'purchase_price' => 'required',
         ];
     }
 
@@ -36,6 +37,8 @@ class ProductRequest extends FormRequest
             'name.required' => 'Product name is missing',
             'quantity.required' => 'Product Quantity is missing',
             'price_per_unit.required' => 'Product Price is missing',
+            'purchase_price.required' => 'Purchasing price is missing',
+
         ];
     }
 }

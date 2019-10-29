@@ -17,7 +17,8 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->integer('quantity')->nullable();
-            $table->decimal('price_per_unit', 11, 2)->nullable();
+            $table->integer('price_per_unit')->nullable();
+            $table->integer('purchase_price')->nullable();
             $table->string('code')->nullable();
             $table->integer('total_quantity');
             $table->string('manufacture_name')->nullable();
