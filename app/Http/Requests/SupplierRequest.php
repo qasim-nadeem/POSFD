@@ -25,7 +25,6 @@ class SupplierRequest extends FormRequest
     {
         return [
             'supplier_name' => 'required',
-            'mobile_no' => 'required',
             'balance' => 'required',
         ];
     }
@@ -34,7 +33,6 @@ class SupplierRequest extends FormRequest
     {
         return [
             'supplier_name.required' => 'Supplier name is missing',
-            'mobile_no.required' => ' Mobile number is missing',
             'balance.required' => 'Balance is missing',
         ];
     }

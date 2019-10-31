@@ -163,6 +163,18 @@
             */
 $('#btn-product-add').on('click', function () {
                event.preventDefault();
+               if($('#dd-supplier').val() == 0 || $('#dd-supplier').val() == ''){
+                alert('Select Supplier:')
+               }
+                else if($('#dd-product').val() == 0 || $('#dd-product').val() == '' ){
+                alert('Select Product:')
+               }else if($('#tb-product-price').val() == 0 || $('#tb-product-price').val() == '' ){
+                alert('Enter Price:')
+               }
+               else if($('#tb-product-quantity').val() == 0 || $('#tb-product-quantity').val() == ''){
+                alert('Enter quantity:')
+               }
+               else{
                total = parseInt($('#tb-product-price').val()) * parseInt($('#tb-product-quantity').val());
                productId = $('#dd-product option:selected').val();
                $('.container-receipt table tbody')
@@ -180,6 +192,7 @@ $('#btn-product-add').on('click', function () {
                console.log(receipt);
                totalPrice += total;
                $('#container-total b').text(totalPrice + ' Rs');
+             }
            });
 
            /*
@@ -190,6 +203,13 @@ $('#btn-product-add').on('click', function () {
 
            $('#btn-transaction-add').on('click', function () {
                event.preventDefault();
+               if($('#tb-product-paid').val() === 0 || $('#tb-product-paid').val() === ''){
+                alert('Paid amount:');
+               }
+               else if(receipt.length === 0 ){
+                alert('Generate Bill first');
+               }
+                else{
                console.log(routeAddTransaction);
                $.ajax({
                    type: 'POST',
@@ -202,9 +222,12 @@ $('#btn-product-add').on('click', function () {
                    success: function(result) {
                         console.log('transaction added success.');
                         location.reload();
-                   }});
+                   }}
 
-           })
+                   );
+             }
+
+           });
 
             /*
                 Removing item from the queue

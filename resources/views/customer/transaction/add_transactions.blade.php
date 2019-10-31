@@ -175,6 +175,7 @@
 
                        $('#product-price-label span').text(result['price']);
                        $('#product-quantity-label span').text(result['quantity']);
+
                    }
 
                }});
@@ -187,6 +188,15 @@
             */
            $('#btn-product-add').on('click', function () {
                event.preventDefault();
+                if($('#dd-product').val() == 0 || $('#dd-product').val() == '' ){
+                alert('Select Product:')
+               }else if($('#tb-product-price').val() == 0 || $('#tb-product-price').val() == '' ){
+                alert('Enter Price:')
+               }
+               else if($('#tb-product-quantity').val() == 0 || $('#tb-product-quantity').val() == ''){
+                alert('Enter quantity:')
+               }
+               else{
                total = parseInt($('#tb-product-price').val()) * parseInt($('#tb-product-quantity').val());
                productId = $('#dd-product option:selected').val();
                $('.container-receipt table tbody')
@@ -204,6 +214,7 @@
                console.log(receipt);
                totalPrice += total;
                $('#container-total b').text(totalPrice + ' Rs');
+           }
            });
 
 
