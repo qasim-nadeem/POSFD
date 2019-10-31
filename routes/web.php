@@ -72,3 +72,9 @@ Route::get('/dashboard', 'DashboardController@index')->name('page-dashboard');
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('page-login');
 Route::post('/', 'Auth\LoginController@login')->name('page-login-post');
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+//
+// Filtering routes
+//
+Route::post('/filter/profit', 'FilterController@profitFilter')->name('profit.filter');
