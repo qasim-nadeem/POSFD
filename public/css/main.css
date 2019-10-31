@@ -45,3 +45,11 @@
     float: right;
     cursor: pointer;
 }
+#generate-bill{
+    padding: 5px;
+    width: 120px;
+    border-radius: 100px;
+    height: 120px;
+    font-weight: bold;
+    margin: 10px;
+}

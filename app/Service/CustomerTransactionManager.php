@@ -8,6 +8,7 @@ use App\Customer;
 use App\CustomerTransactions;
 use App\CustomerTransactionsProduct;
 use App\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -60,6 +61,7 @@ class CustomerTransactionManager
                 $transactionProduct->price_per_unit = $product[1];
                 $transactionProduct->discounted_price_per_unit = 0;
                 $transactionProduct->profit = ($product[1] - $profit['purchase_price']) * $product[2];
+                $transactionProduct->created_at = Carbon::now();
                 $this->updateProduct($product[0], $product[2]);
                 $transactionProduct->save();
             }

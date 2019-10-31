@@ -40,9 +40,9 @@ class ProfitFilterManager
 
         $dateFrom = Carbon::parse($request->all()['date-from']);
         $dateTo = Carbon::parse($request->all()['date-to']);
-        $result = CustomerTransactionsProduct::select(['id','profit'])->whereBetween('created_at', [
+        $result = CustomerTransactions::select(['id','amount_paid'])->whereBetween('created_at', [
             $dateFrom->subDay(),
-            $dateTo->addDay(),])->sum('profit');
+            $dateTo->addDay(),])->sum('amount_paid');
 
         $data['total_profit'] = $result;
 

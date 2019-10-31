@@ -1,11 +1,11 @@
 @extends('layouts.base_dashboard')
 
 @section('body')
-    
+
     <div class="row">
 
         <div class="col-md-8 col-sm-8" id="filter-container">
-            <h5> Profit Filter </h5><hr>
+            <h5> Sales Filter </h5><hr>
 
             <form action="{{ route('profit.filter') }}" method="post" id="form-profit-filter">
                 @csrf
@@ -29,7 +29,7 @@
                     <div class="card-body-icon">
                         <i class="fas fa-fw fa-comments"></i>
                     </div>
-                    <div class="mr-5">Total Profit For Date Range</div>
+                    <div class="mr-5">Total Sales For Date Range</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" >
                     <span class="float-left">{{ $total_profit }}</span>
@@ -66,10 +66,10 @@
                     <div class="card-body-icon">
                         <i class="fas fa-fw fa-comments"></i>
                     </div>
-                    <div class="mr-5">Daily Sales</div>
+                    <div class="mr-5">Weekly Sales</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" >
-                    <span class="float-left">{{$daily}}</span>
+                    <span class="float-left">{{$weekly}}</span>
                     <span class="float-right">
                         <i class="fas fa-angle-right"></i>
                     </span>
@@ -81,10 +81,10 @@
                     <div class="card-body-icon">
                         <i class="fas fa-fw fa-comments"></i>
                     </div>
-                    <div class="mr-5">Daily Sales</div>
+                    <div class="mr-5">Monthly Sales</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" >
-                    <span class="float-left">{{$daily}}</span>
+                    <span class="float-left">{{$monthly}}</span>
                     <span class="float-right">
                         <i class="fas fa-angle-right"></i>
                     </span>
@@ -157,11 +157,7 @@
     <div class="row">
 
         <div class="col-md-12">
-            <a href="{{ route('customer.add.transactions') }}"><button class="btn btn-success"> Add Customer Transaction</button></a>
-            <a href="{{ route('customer.all.transactions') }}"><button class="btn btn-success"> All Customer Transactions</button></a>
-
-            <a href="{{ route('supplier.add.transactions') }}"><button class="btn btn-success"> Add Supplier Transaction</button></a>
-            <a href="{{ route('supplier.all.transactions') }}"><button class="btn btn-success"> All Supplier Transactions</button></a>
+            <a href="{{ route('customer.add.transactions') }}"><button class="btn btn-success" id="generate-bill">Generate Bill</button></a>
         </div>
     </div>
 @endsection
