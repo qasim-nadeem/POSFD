@@ -29,6 +29,8 @@
     <!-- searchable select box -->
     <link href= {{ URL::asset( "css/jquery-customselect.css" )}} rel="stylesheet">
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     @yield('style')
@@ -49,7 +51,7 @@
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
-            
+
         </div>
     </form>
 
@@ -223,6 +225,7 @@
 <script src= {{ URL::asset( "js/demo/datatables-demo.js" )}}></script>
 <script src= {{ URL::asset( "js/demo/chart-area-demo.js" )}}></script>
 <script src= {{ URL::asset( "js/jquery-customselect.js" )}}></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 @yield('scripts')
 </body>
 </html>
