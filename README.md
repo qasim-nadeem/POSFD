@@ -6,7 +6,7 @@ Its a sales management system for small shops, shop owner can add product and ca
 
 
 
-#####Installation
+##### Installation
 
 1) clone project
 
